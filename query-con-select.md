@@ -17,7 +17,15 @@ WHERE `cfu` > 10;
 
     SELECT *
 FROM `students`
+WHERE YEAR(CURRENT_DATE()) - YEAR(`date_of_birth`) > 30
+AND MONTH(CURRENT_DATE()) >= MONTH(`date_of_birth`)
+AND DAY(CURRENT_DATE()) >= DAY(`date_of_birth`);
+
+----VECCHIO CALCOLO
+    SELECT *
+FROM `students`
 WHERE YEAR(FROM_DAYS(TO_DAYS(CURRENT_DATE()) - TO_DAYS(`date_of_birth`))) > 30;
+----/VECCHIO CALCOLO
 
 4. Selezionare tutti i corsi del primo semestre del primo anno di un qualsiasi corso di laurea (286)
 
