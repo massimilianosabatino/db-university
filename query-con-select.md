@@ -14,14 +14,18 @@ FROM `courses`
 WHERE `cfu` > 10;
 
 3. Selezionare tutti gli studenti che hanno più di 30 anni
+    SELECT * FROM `students`
+WHERE YEAR(FROM_DAYS(datediff(curdate(), `date_of_birth`) + 1)) > 30;
 
+----CALCOLO DUE
     SELECT *
 FROM `students`
 WHERE YEAR(CURRENT_DATE()) - YEAR(`date_of_birth`) > 30
 AND MONTH(CURRENT_DATE()) >= MONTH(`date_of_birth`)
 AND DAY(CURRENT_DATE()) >= DAY(`date_of_birth`);
+----/CALCOLO DUE
 
-----VECCHIO CALCOLO
+----VECCHIO CALCOLO - RISULTATO UGUALE A PRIMO CALCOLO
     SELECT *
 FROM `students`
 WHERE YEAR(FROM_DAYS(TO_DAYS(CURRENT_DATE()) - TO_DAYS(`date_of_birth`))) > 30;
