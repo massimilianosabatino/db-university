@@ -13,23 +13,31 @@ WHERE YEAR(`date_of_birth`) = 1990;
 FROM `courses`
 WHERE `cfu` > 10;
 
-3. Selezionare tutti gli studenti che hanno più di 30 anni
-    SELECT * FROM `students`
-WHERE YEAR(FROM_DAYS(datediff(curdate(), `date_of_birth`) + 1)) > 30;
+3. Selezionare tutti gli studenti che hanno più di 30 anni  
 
-----CALCOLO DUE
+---TIMESTAMPDIFF TIENE IN CONSIDERAZIONE ANCHE MESE E GIORNO QUINDI POTEVA ESSERE SVOLTO CON:  
+    SELECT TIMESTAMPDIFF(YEAR, `date_of_birth`, CURDATE()) AS `eta`, `date_of_birth`, CURDATE() AS `oggi`  
+FROM `students`  
+WHERE TIMESTAMPDIFF(YEAR, `date_of_birth`, CURDATE()) > 30;  
+
+----CALCOLO UNO  
+    SELECT * FROM `students`  
+WHERE YEAR(FROM_DAYS(datediff(curdate(), `date_of_birth`) + 1)) > 30;  
+----/CALCOLO UNO  
+
+----CALCOLO DUE  
     SELECT *
-FROM `students`
-WHERE YEAR(CURRENT_DATE()) - YEAR(`date_of_birth`) > 30
-AND MONTH(CURRENT_DATE()) >= MONTH(`date_of_birth`)
-AND DAY(CURRENT_DATE()) >= DAY(`date_of_birth`);
-----/CALCOLO DUE
+FROM `students`  
+WHERE YEAR(CURRENT_DATE()) - YEAR(`date_of_birth`) > 30  
+AND MONTH(CURRENT_DATE()) >= MONTH(`date_of_birth`)  
+AND DAY(CURRENT_DATE()) >= DAY(`date_of_birth`);  
+----/CALCOLO DUE  
 
-----VECCHIO CALCOLO - RISULTATO UGUALE A PRIMO CALCOLO
+----VECCHIO CALCOLO - RISULTATO UGUALE A PRIMO CALCOLO  
     SELECT *
 FROM `students`
 WHERE YEAR(FROM_DAYS(TO_DAYS(CURRENT_DATE()) - TO_DAYS(`date_of_birth`))) > 30;
-----/VECCHIO CALCOLO
+----/VECCHIO CALCOLO  
 
 4. Selezionare tutti i corsi del primo semestre del primo anno di un qualsiasi corso di laurea (286)
 
