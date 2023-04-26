@@ -52,6 +52,17 @@ ORDER BY `degree_name`, `teacher_surname`, `teacher_name`;
 
 6. Selezionare tutti i docenti che insegnano nel Dipartimento di Matematica (54)  
 
-
+SELECT DISTINCT `teachers`.`name` AS `teacher_name`, `teachers`.`surname` AS `teacher_surname`, `departments`.`name`  
+FROM `teachers`  
+JOIN `course_teacher`  
+ON `teachers`.`id` = `course_teacher`.`teacher_id`  
+JOIN `courses`  
+ON `course_teacher`.`course_id` = `courses`.`id`  
+JOIN `degrees`  
+ON `courses`.`degree_id` = `degrees`.`id`  
+JOIN `departments`  
+ON `degrees`.`department_id` = `departments`.`id`  
+WHERE `departments`.`name` = "Dipartimento di Matematica"    
+ORDER BY `teacher_surname` ASC, `teacher_name` ASC;  
 
 7. BONUS: Selezionare per ogni studente quanti tentativi d’esame ha sostenuto per superare ciascuno dei suoi esami  
